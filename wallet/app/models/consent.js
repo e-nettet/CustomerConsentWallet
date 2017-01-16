@@ -1,9 +1,9 @@
-import Ember from 'ember';
+import Ember from "ember";
 
 export default Ember.Object.extend({
 
-  getState: Ember.computed(function() {
-    switch(parseInt(this.get("state"), 10)) {
+  getState: Ember.computed(function () {
+    switch (parseInt(this.get("state"), 10)) {
       case 0:
         return "REQUESTED";
       case 1:
@@ -12,6 +12,12 @@ export default Ember.Object.extend({
         return "REVOKED";
       case 3:
         return "REJECTED";
+      case 4:
+        return "DATA REQUESTED";
+      case 5:
+        return "DATA PROVIDED";
+      default:
+        return "UNKNOWN";
     }
-  })
+  }).volatile()
 });

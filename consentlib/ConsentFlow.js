@@ -9,12 +9,13 @@ class ConsentFlow {
         this.idServiceAddress = null;
         this.gasPrice = 50000000000;
         this.gas = 4000000;
-        this.contractAddress = '0x5E147E352fdE327ADDda8616fda402B45Ad8A3F4';
+        this.contractAddress = '0x29d077d0E971e8eB18633464DD0344de9a228d63';
         this.contractAbi = [{
             "constant": false,
             "inputs": [
-                {"name": "data_requester", "type": "address"},
+                {"name": "customer", "type": "address"},
                 {"name": "data_owner", "type": "address"},
+                {"name": "data_requester", "type": "address"},
                 {"name": "id", "type": "uint256"},
                 {"name": "state", "type": "uint8"}
             ],
@@ -113,7 +114,7 @@ class ConsentFlow {
             "outputs": [{"name": "", "type": "uint256", "value": "0"}],
             "payable": false,
             "type": "function"
-        }, {"inputs": [], "type": "constructor"}, {
+        }, {"inputs": [], "payable": true, "type": "constructor"}, {
             "anonymous": false,
             "inputs": [
                 {"indexed": false, "name": "customer", "type": "address"},
@@ -357,7 +358,6 @@ class ConsentFlow {
                     resolve(result);
                 } else {
                     console.log("Irrelevant consent response", result.args.id.toString(10));
-                    console.log(result);
                 }
             });
         });

@@ -10,7 +10,7 @@ contract Consents {
     // array of all consents, public accessible on index
     Consent[] public consents;
 
-    enum State {Requested, Given, Revoked, Rejected}
+    enum State {Requested, Given, Revoked, Rejected, DataRequested, DataProvided}
 
     struct Consent {
         uint id; // id is assumed to be a UUID
@@ -43,8 +43,8 @@ contract Consents {
     }
 
     // assumes that it is called by customer
-    function updateConsent(address data_requester, address data_owner, uint id, State state) returns (bool) {
-      var updated = changeConsent(msg.sender, data_owner, data_requester, id, state);
+    function updateConsent(address customer, address data_owner, address data_requester, uint id, State state) returns (bool) {
+      var updated = changeConsent(customer, data_owner, data_requester, id, state);
       ConsentUpdated(updated, msg.sender, data_owner, data_requester, state, id);
       return updated;
     }
@@ -81,7 +81,11 @@ contract Consents {
             consent.customer == customer &&
             consent.data_requester == msg.sender &&
             consent.data_owner == data_owner) {
-                DataRequested(customer, data_owner, msg.sender, id);
+                var updated = updateConsent(customer, data_owner, msg.sender, id, State.DataRequested);
+
+                if (updated) {
+                    DataRequested(customer, data_owner, msg.sender, id);
+                }
         } else {
             throw;
         }
@@ -96,7 +100,11 @@ contract Consents {
             consent.customer == customer &&
             consent.data_requester == data_requester &&
             consent.data_owner == msg.sender) {
-                DataProvided(customer,  msg.sender, data_requester, id, payload);
+                var updated = updateConsent(customer, msg.sender, data_requester, id, State.DataProvided);
+
+                if (updated) {
+                    DataProvided(customer,  msg.sender, data_requester, id, payload);
+                }
         } else {
             throw;
         }

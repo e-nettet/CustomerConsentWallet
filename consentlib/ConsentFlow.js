@@ -9,18 +9,27 @@ class ConsentFlow {
         this.idServiceAddress = null;
         this.gasPrice = 50000000000;
         this.gas = 4000000;
-        this.contractAddress = '0x29d077d0E971e8eB18633464DD0344de9a228d63';
+        this.contractAddress = '0xe6e7dCB0Efb83f5c0c0B88163aa840954Bd8F603';
         this.contractAbi = [{
             "constant": false,
-            "inputs": [
-                {"name": "customer", "type": "address"},
-                {"name": "data_owner", "type": "address"},
-                {"name": "data_requester", "type": "address"},
-                {"name": "id", "type": "uint256"},
-                {"name": "state", "type": "uint8"}
-            ],
+            "inputs": [{
+                "name": "data_owner",
+                "type": "address"
+            }, {
+                "name": "data_requester",
+                "type": "address"
+            }, {
+                "name": "id",
+                "type": "uint256"
+            }, {
+                "name": "state",
+                "type": "uint8"
+            }],
             "name": "updateConsent",
-            "outputs": [{"name": "", "type": "bool"}],
+            "outputs": [{
+                "name": "",
+                "type": "bool"
+            }],
             "payable": false,
             "type": "function"
         }, {
@@ -32,139 +41,276 @@ class ConsentFlow {
             "type": "function"
         }, {
             "constant": false,
-            "inputs": [
-                {"name": "customer", "type": "address"},
-                {"name": "data_owner", "type": "address"},
-                {"name": "id", "type": "uint256"}
-            ],
+            "inputs": [{
+                "name": "customer",
+                "type": "address"
+            }, {
+                "name": "data_owner",
+                "type": "address"
+            }, {
+                "name": "id",
+                "type": "uint256"
+            }],
             "name": "requestData",
             "outputs": [],
             "payable": false,
             "type": "function"
         }, {
             "constant": false,
-            "inputs": [
-                {"name": "customer", "type": "address"},
-                {"name": "data_owner", "type": "address"},
-                {"name": "id", "type": "uint256"}
-            ],
+            "inputs": [{
+                "name": "customer",
+                "type": "address"
+            }, {
+                "name": "data_owner",
+                "type": "address"
+            }, {
+                "name": "id",
+                "type": "uint256"
+            }],
             "name": "requestConsent",
             "outputs": [],
             "payable": false,
             "type": "function"
         }, {
             "constant": true,
-            "inputs": [
-                {"name": "", "type": "address"},
-                {"name": "", "type": "uint256"}
-            ],
+            "inputs": [{
+                "name": "",
+                "type": "address"
+            }, {
+                "name": "",
+                "type": "uint256"
+            }],
             "name": "customer_mapping",
-            "outputs": [{"name": "", "type": "uint256", "value": "0"}],
+            "outputs": [{
+                "name": "",
+                "type": "uint256",
+                "value": "0"
+            }],
             "payable": false,
             "type": "function"
         }, {
             "constant": true,
-            "inputs": [{"name": "index", "type": "uint256"}],
+            "inputs": [{
+                "name": "index",
+                "type": "uint256"
+            }],
             "name": "getConsent",
-            "outputs": [
-                {"name": "", "type": "address", "value": "0x"},
-                {"name": "", "type": "address", "value": "0x"},
-                {"name": "", "type": "address", "value": "0x"},
-                {"name": "", "type": "uint8", "value": "0"},
-                {"name": "", "type": "uint256", "value": "0"}
-            ],
+            "outputs": [{
+                "name": "",
+                "type": "address",
+                "value": "0x"
+            }, {
+                "name": "",
+                "type": "address",
+                "value": "0x"
+            }, {
+                "name": "",
+                "type": "address",
+                "value": "0x"
+            }, {
+                "name": "",
+                "type": "uint8",
+                "value": "0"
+            }, {
+                "name": "",
+                "type": "uint256",
+                "value": "0"
+            }],
             "payable": false,
             "type": "function"
         }, {
             "constant": false,
-            "inputs": [
-                {"name": "customer", "type": "address"},
-                {"name": "data_requester", "type": "address"},
-                {"name": "id", "type": "uint256"},
-                {"name": "payload", "type": "bytes"}
-            ],
+            "inputs": [{
+                "name": "customer",
+                "type": "address"
+            }, {
+                "name": "data_requester",
+                "type": "address"
+            }, {
+                "name": "id",
+                "type": "uint256"
+            }, {
+                "name": "payload",
+                "type": "bytes"
+            }],
             "name": "provideData",
             "outputs": [],
             "payable": false,
             "type": "function"
         }, {
             "constant": true,
-            "inputs": [{"name": "customer", "type": "address"}],
+            "inputs": [{
+                "name": "customer",
+                "type": "address"
+            }],
             "name": "customerConsents",
-            "outputs": [{"name": "", "type": "uint256", "value": "0"}],
+            "outputs": [{
+                "name": "",
+                "type": "uint256",
+                "value": "0"
+            }],
             "payable": false,
             "type": "function"
         }, {
             "constant": true,
-            "inputs": [{"name": "", "type": "uint256"}],
+            "inputs": [{
+                "name": "",
+                "type": "uint256"
+            }],
             "name": "consents",
-            "outputs": [
-                {"name": "id", "type": "uint256", "value": "0"},
-                {"name": "data_requester", "type": "address", "value": "0x"},
-                {"name": "customer", "type": "address", "value": "0x"},
-                {"name": "data_owner", "type": "address", "value": "0x"},
-                {"name": "state", "type": "uint8", "value": "0"}
-            ],
+            "outputs": [{
+                "name": "id",
+                "type": "uint256",
+                "value": "0"
+            }, {
+                "name": "data_requester",
+                "type": "address",
+                "value": "0x"
+            }, {
+                "name": "customer",
+                "type": "address",
+                "value": "0x"
+            }, {
+                "name": "data_owner",
+                "type": "address",
+                "value": "0x"
+            }, {
+                "name": "state",
+                "type": "uint8",
+                "value": "0"
+            }],
             "payable": false,
             "type": "function"
         }, {
             "constant": true,
-            "inputs": [{"name": "", "type": "uint256"}],
+            "inputs": [{
+                "name": "",
+                "type": "uint256"
+            }],
             "name": "id_mapping",
-            "outputs": [{"name": "", "type": "uint256", "value": "0"}],
+            "outputs": [{
+                "name": "",
+                "type": "uint256",
+                "value": "0"
+            }],
             "payable": false,
             "type": "function"
-        }, {"inputs": [], "payable": true, "type": "constructor"}, {
+        }, {
+            "inputs": [],
+            "payable": true,
+            "type": "constructor"
+        }, {
             "anonymous": false,
-            "inputs": [
-                {"indexed": false, "name": "customer", "type": "address"},
-                {"indexed": false, "name": "data_owner", "type": "address"},
-                {"indexed": false, "name": "data_requester", "type": "address"},
-                {"indexed": false, "name": "id", "type": "uint256"}
-            ],
+            "inputs": [{
+                "indexed": false,
+                "name": "customer",
+                "type": "address"
+            }, {
+                "indexed": false,
+                "name": "data_owner",
+                "type": "address"
+            }, {
+                "indexed": false,
+                "name": "data_requester",
+                "type": "address"
+            }, {
+                "indexed": false,
+                "name": "id",
+                "type": "uint256"
+            }],
             "name": "ConsentRequested",
             "type": "event"
         }, {
             "anonymous": false,
-            "inputs": [
-                {"indexed": false, "name": "updated", "type": "bool"},
-                {"indexed": false, "name": "customer", "type": "address"},
-                {"indexed": false, "name": "data_owner", "type": "address"},
-                {"indexed": false, "name": "data_requester", "type": "address"},
-                {"indexed": false, "name": "state", "type": "uint8"},
-                {"indexed": false, "name": "id", "type": "uint256"}
-            ],
+            "inputs": [{
+                "indexed": false,
+                "name": "updated",
+                "type": "bool"
+            }, {
+                "indexed": false,
+                "name": "customer",
+                "type": "address"
+            }, {
+                "indexed": false,
+                "name": "data_owner",
+                "type": "address"
+            }, {
+                "indexed": false,
+                "name": "data_requester",
+                "type": "address"
+            }, {
+                "indexed": false,
+                "name": "state",
+                "type": "uint8"
+            }, {
+                "indexed": false,
+                "name": "id",
+                "type": "uint256"
+            }],
             "name": "ConsentUpdated",
             "type": "event"
         }, {
             "anonymous": false,
-            "inputs": [
-                {"indexed": false, "name": "customer", "type": "address"},
-                {"indexed": false, "name": "data_owner", "type": "address"},
-                {"indexed": false, "name": "data_requester", "type": "address"},
-                {"indexed": false, "name": "id", "type": "uint256"}
-            ],
+            "inputs": [{
+                "indexed": false,
+                "name": "customer",
+                "type": "address"
+            }, {
+                "indexed": false,
+                "name": "data_owner",
+                "type": "address"
+            }, {
+                "indexed": false,
+                "name": "data_requester",
+                "type": "address"
+            }, {
+                "indexed": false,
+                "name": "id",
+                "type": "uint256"
+            }],
             "name": "DataRequested",
             "type": "event"
         }, {
             "anonymous": false,
-            "inputs": [
-                {"indexed": false, "name": "customer", "type": "address"},
-                {"indexed": false, "name": "data_owner", "type": "address"},
-                {"indexed": false, "name": "data_requester", "type": "address"},
-                {"indexed": false, "name": "id", "type": "uint256"},
-                {"indexed": false, "name": "payload", "type": "bytes"}
-            ],
+            "inputs": [{
+                "indexed": false,
+                "name": "customer",
+                "type": "address"
+            }, {
+                "indexed": false,
+                "name": "data_owner",
+                "type": "address"
+            }, {
+                "indexed": false,
+                "name": "data_requester",
+                "type": "address"
+            }, {
+                "indexed": false,
+                "name": "id",
+                "type": "uint256"
+            }, {
+                "indexed": false,
+                "name": "payload",
+                "type": "bytes"
+            }],
             "name": "DataProvided",
             "type": "event"
         }, {
             "anonymous": false,
-            "inputs": [{"indexed": false, "name": "x", "type": "address"}],
+            "inputs": [{
+                "indexed": false,
+                "name": "x",
+                "type": "address"
+            }],
             "name": "PrintAddress",
             "type": "event"
         }, {
             "anonymous": false,
-            "inputs": [{"indexed": false, "name": "x", "type": "bytes"}],
+            "inputs": [{
+                "indexed": false,
+                "name": "x",
+                "type": "bytes"
+            }],
             "name": "Printbytes",
             "type": "event"
         }];
@@ -186,7 +332,9 @@ class ConsentFlow {
 
     registerWhisperId(from, to, email, ttl, priority) {
         console.log("Registering identity", email, from);
-        this.whisper.send(from, to, "identity-service-register", {"email": email}, ttl, priority);
+        this.whisper.send(from, to, "identity-service-register", {
+            "email": email
+        }, ttl, priority);
     }
 
     lookupWhisperIds(from, to, emails, ttl, priority, timeout) {
@@ -207,7 +355,9 @@ class ConsentFlow {
 
             emails.forEach((email) => {
                 console.log("Lookup identity for", email);
-                this.whisper.send(from, to, "identity-service-lookup", {"email": email}, ttl, priority);
+                this.whisper.send(from, to, "identity-service-lookup", {
+                    "email": email
+                }, ttl, priority);
             });
 
             setTimeout(() => {
@@ -240,7 +390,9 @@ class ConsentFlow {
 
             whisperIds.forEach((id, email) => {
                 console.log("Lookup address for", email, id);
-                this.whisper.send(self, id, "eth-address-lookup", {"email": email}, ttl, priority);
+                this.whisper.send(self, id, "eth-address-lookup", {
+                    "email": email
+                }, ttl, priority);
             });
 
             setTimeout(() => {
@@ -289,7 +441,9 @@ class ConsentFlow {
 
         let contract = this.web3.eth.contract(JSON.parse(abi));
         let bytecode = compiledContract.contracts[contractName].bytecode;
-        let gasEstimate = this.web3.eth.estimateGas({data: bytecode});
+        let gasEstimate = this.web3.eth.estimateGas({
+            data: bytecode
+        });
 
         let newContract = contract.new({
             from: address,
@@ -303,8 +457,7 @@ class ConsentFlow {
                 } else {
                     console.log("Address: ", myContract.address);
                 }
-            }
-            else {
+            } else {
                 console.log(err);
             }
         });

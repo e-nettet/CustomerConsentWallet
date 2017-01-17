@@ -84,12 +84,12 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
     let event = contract.ConsentRequested();
     event.watch((error, result) => {
       if (result.args.customer === address) {
-        console.log("Got consent request");        
+        console.log("Got consent request");
         let consent = Consent.create({
           requester: result.args.data_requester,
           customer: result.args.customer,
           owner: result.args.data_owner,
-          state: 0,
+          state: "0",
           id: result.args.id.toString(10)
         });
         if (!this.get("consentIds").includes(consent.id)) {

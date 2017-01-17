@@ -42,11 +42,11 @@ contract Consents {
         ConsentRequested(customer, data_owner, msg.sender, id);
     }
 
-    // assumes that it is called by customer
-    function updateConsent(address customer, address data_owner, address data_requester, uint id, State state) returns (bool) {
-      var updated = changeConsent(customer, data_owner, data_requester, id, state);
-      ConsentUpdated(updated, msg.sender, data_owner, data_requester, state, id);
-      return updated;
+    // called by customer
+    function updateConsent(address data_owner, address data_requester, uint id, State state) returns (bool) {
+        var updated = changeConsent(msg.sender, data_owner, data_requester, id, state);
+        ConsentUpdated(updated, msg.sender, data_owner, data_requester, state, id);
+        return updated;
     }
 
     function getConsent(uint index) constant returns (address, address, address, State, uint) {
@@ -81,7 +81,9 @@ contract Consents {
             consent.customer == customer &&
             consent.data_requester == msg.sender &&
             consent.data_owner == data_owner) {
-                var updated = updateConsent(customer, data_owner, msg.sender, id, State.DataRequested);
+                var state = State.DataRequested;
+                var updated = changeConsent(customer, data_owner, msg.sender, id, state);
+                ConsentUpdated(updated, customer, data_owner, msg.sender, state, id);
 
                 if (updated) {
                     DataRequested(customer, data_owner, msg.sender, id);
@@ -96,11 +98,13 @@ contract Consents {
         var index = id_mapping[id];
         Consent consent = consents[index];
 
-        if (consent.state == State.Given &&
+        if (consent.state == State.DataRequested &&
             consent.customer == customer &&
             consent.data_requester == data_requester &&
             consent.data_owner == msg.sender) {
-                var updated = updateConsent(customer, msg.sender, data_requester, id, State.DataProvided);
+                var state = State.DataProvided;
+                var updated = changeConsent(customer, msg.sender, data_requester, id, state);
+                ConsentUpdated(updated, customer, msg.sender, data_requester, state, id);
 
                 if (updated) {
                     DataProvided(customer,  msg.sender, data_requester, id, payload);

@@ -7,14 +7,16 @@
           <dd>{{consent.id}}</dd>
           <dt>Customer</dt>
           <dd>{{consent.customer}}</dd>
-          <dt>From</dt>
+          <dt>Data requester</dt>
           <dd>{{consent.requester}}</dd>
+          <dt>Data owner</dt>
+          <dd>{{consent.owner}}</dd>
           <dt>State</dt>
-          <dd class="state">{{consent.getState}}</dd>
+          <dd class="state">{{consent.stateStr}}</dd>
         </dl>
       </td>
       <td>
-        {{#if (eq consent.getState 'REQUESTED')}}
+        {{#if (eq consent.state "0")}}
           <span class="pull-right">
             {{async-button class="btn btn-sm btn-success acceptConsent" action=(action 'acceptConsent' consent) default="Accept" pending="Accepting..." fulfilled="Accepted"}}
             {{async-button class="btn btn-sm btn-warning rejectConsent" action=(action 'rejectConsent' consent) default="Reject" pending="Rejecting..." fulfilled="Rejected"}}

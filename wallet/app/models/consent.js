@@ -2,7 +2,7 @@ import Ember from "ember";
 
 export default Ember.Object.extend({
 
-  getState: Ember.computed(function () {
+  stateStr: function () {    
     switch (parseInt(this.get("state"), 10)) {
       case 0:
         return "REQUESTED";
@@ -19,5 +19,5 @@ export default Ember.Object.extend({
       default:
         return "UNKNOWN";
     }
-  }).volatile()
+  }.property('state')
 });

@@ -17,7 +17,6 @@ export default Ember.Component.extend({
   },
 
   watchUpdates: function (consent) {
-
     let web3 = this.get("web3").instance();
     let contract = this.get("consentLib").initialize(web3).getConsentContract();
     let event = contract.ConsentUpdated();
@@ -25,21 +24,15 @@ export default Ember.Component.extend({
     event.watch((error, result) => {
       if (!error) {
         if (result.args.id.toString(10) === consent.id) {
-          if (result.args.updated === true) {
-            consent.state = result.args.state.toString(10);
-            this.$(".acceptConsent").hide();
-            this.$(".rejectConsent").hide();
-          } else {
-            event.stopWatching();
-            this.rejected("Consent could not be updated according to contract specification");
+          if (result.args.updated === true && consent.state !== 0) {
+            this.set("consent.state", result.args.state.toString(10));
           }
-
           if (result.args.state.toString(10) === "5") {
             event.stopWatching();
           }
         }
       } else {
-        this.rejected(error);
+        console.error(error);
         event.stopWatching();
       }
     });
@@ -54,13 +47,37 @@ export default Ember.Component.extend({
       let state = 1;
 
       return new Ember.RSVP.Promise((resolve, reject) => {
-        contract.updateConsent(web3.toHex(consent.customer), web3.toHex(consent.owner), web3.toHex(consent.requester), web3.toHex(consent.id), state, {
+        contract.updateConsent(web3.toHex(consent.owner), web3.toHex(consent.requester), web3.toHex(consent.id), state, {
           gas: gas,
           gasPrice: gasPrice
         }, (error, result) => {
           if (error !== null) {
             this.rejected(error);
             reject();
+          } else {
+            let event = contract.ConsentUpdated();
+            event.watch((error, result) => {
+              if (!error) {
+                if (result.args.id.toString(10) === consent.id && result.args.state.toString(10) === state.toString()) {
+                  if (result.args.updated === true) {
+                    this.set("consent.state", result.args.state.toString(10));
+                    this.$(".acceptConsent").hide();
+                    this.$(".rejectConsent").hide();
+                    event.stopWatching();
+                    resolve();
+                  } else {
+                    event.stopWatching();
+                    this.rejected("Consent could not be updated according to contract specification");
+                    reject();
+                  }
+                }
+                // else wait for event for this consent
+              } else {
+                this.rejected(error);
+                event.stopWatching();
+                reject();
+              }
+            });
           }
         });
       });
@@ -74,10 +91,34 @@ export default Ember.Component.extend({
       let state = 3;
 
       return new Ember.RSVP.Promise((resolve, reject) => {
-        contract.updateConsent(web3.toHex(consent.requester), web3.toHex(consent.owner), web3.toHex(consent.id), state, {gas: gas, gasPrice: gasPrice}, (error, result) => {
+        contract.updateConsent(web3.toHex(consent.owner), web3.toHex(consent.requester), web3.toHex(consent.id), state, {gas: gas, gasPrice: gasPrice}, (error, result) => {
           if (error !== null) {
             this.rejected(error);
             reject();
+          } else {
+            let event = contract.ConsentUpdated();
+            event.watch((error, result) => {
+              if (!error) {
+                if (result.args.id.toString(10) === consent.id && result.args.state.toString(10) === state.toString()) {
+                  if (result.args.updated === true) {
+                    this.set("consent.state", result.args.state.toString(10));
+                    this.$(".acceptConsent").hide();
+                    this.$(".rejectConsent").hide();
+                    event.stopWatching();
+                    resolve();
+                  } else {
+                    this.rejected("Consent could not be updated according to contract specification");
+                    event.stopWatching();
+                    reject();
+                  }
+                }
+                // else wait for event for this consent
+              } else {
+                this.rejected(error);
+                event.stopWatching();
+                reject();
+              }
+            });
           }
         });
       });
